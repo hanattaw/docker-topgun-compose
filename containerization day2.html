@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>containerization day2.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="tesa-top-gun-rally-16-%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B0%E0%B8%94%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AA%E0%B8%A1%E0%B8%AD%E0%B8%87%E0%B8%81%E0%B8%A5%E0%B8%9D%E0%B8%B1%E0%B8%87%E0%B8%95%E0%B8%B1%E0%B8%A7-%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%97%E0%B8%B5%E0%B9%88-16">TESA Top gun Rally #16 (การประชันทักษะด้านสมองกลฝังตัว ครั้งที่ 16)</h1>
+<h2 id="server-programming-and-configuration">Server Programming and Configuration.</h2>
+<h2 id="%E0%B8%A7%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88-2-docker-compose--mqtt-topic">วันที่ 2 Docker compose / MQTT Topic##</h2>
+<h3 id="%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B8%B9%E0%B9%89">เรียนรู้</h3>
+<ol>
+<li>เรียนรู้ docker compose</li>
+<li>กำหนด topic/subscribe ของ MQTT</li>
+</ol>
+<p><img src="./assets/CDTI Topgun2022-broker.png" alt="EMQX"></p>
+<h2 id="docker-compose">Docker Compose</h2>
+<p><strong>Compose</strong> is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration.</p>
+<p>A docker-compose.yml looks like this:</p>
+<pre class="hljs"><code><div>version: <span class="hljs-string">'3'</span>
+
+services:
+
+  emqx-mqtt:
+    image: emqx/emqx:<span class="hljs-number">5.0</span>.<span class="hljs-number">7</span>-elixir
+    container_name: emqx
+    networks:
+      - my-network
+    volumes:
+      - ./emqx_data:/opt/emqx/data
+      - ./emqx_log:/opt/emqx/log
+    ports:
+      - <span class="hljs-number">1883</span>:<span class="hljs-number">1883</span>
+      - <span class="hljs-number">8083</span>:<span class="hljs-number">8083</span> 
+      - <span class="hljs-number">8084</span>:<span class="hljs-number">8084</span> 
+      - <span class="hljs-number">8883</span>:<span class="hljs-number">8883</span> 
+      - <span class="hljs-number">18083</span>:<span class="hljs-number">18083</span> 
+
+  node-red:
+    image: nodered/node-red
+    container_name: node-red
+    networks:
+      - my-network
+    volumes:
+      - ./node_red_data:/data
+    ports:
+      - <span class="hljs-number">1880</span>:<span class="hljs-number">1880</span>
+
+networks:
+  my-network:
+
+</div></code></pre>
+<h2 id="run-compose">run compose</h2>
+<pre class="hljs"><code><div>$ docker compose up
+
+[+] Running 3/3
+ ⠿ Network docker-topgun-compose_my-network  Created                                                  0.0s
+ ⠿ Container emqx                            Created                                                  0.1s
+ ⠿ Container node-red                        Created                                                  0.0s
+Attaching to emqx, node-red
+
+</div></code></pre>
+<p>Stop compose</p>
+<pre class="hljs"><code><div>
+$ docker compose stop 
+
+[+] Running 2/2
+ ⠿ Container node-red  Stopped                                                                        0.1s
+ ⠿ Container emqx      Stopped                                                                        1.4s
+
+</div></code></pre>
+<p>Remove compose</p>
+<pre class="hljs"><code><div>$ docker compose down
+
+[+] Running 3/0
+ ⠿ Container node-red                        Removed                                                  0.0s
+ ⠿ Container emqx                            Removed                                                  0.0s
+ ⠿ Network docker-topgun-compose_my-network  Removed                                                  0.1s
+
+</div></code></pre>
+<h2 id="topics-and-subscribe">Topics and Subscribe</h2>
+<p>Move arm to coordinate x, y, z to topic &quot;topgun/team1/arm/move/&quot;</p>
+<pre class="hljs"><code><div>{
+    <span class="hljs-attr">"x"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">"y"</span>: <span class="hljs-number">180</span>,
+    <span class="hljs-attr">"z"</span>: <span class="hljs-number">30</span>
+}
+
+</div></code></pre>
+<p>Grasp fingers to topic &quot;topgun/team1/fingers/grasp/&quot;</p>
+<pre class="hljs"><code><div>{
+    <span class="hljs-attr">"finger1"</span>: <span class="hljs-number">80</span>,
+    <span class="hljs-attr">"finger2"</span>: <span class="hljs-number">20</span>,
+    <span class="hljs-attr">"finger3"</span>: <span class="hljs-number">30</span>,
+    <span class="hljs-attr">"finger4"</span>: <span class="hljs-number">40</span>,
+    <span class="hljs-attr">"finger5"</span>: <span class="hljs-number">10</span>
+}
+</div></code></pre>
+<h2 id="top-gun-rally-cdti-2022-day-2-excercise">Top Gun Rally CDTI 2022 Day 2 Excercise</h2>
+<ol>
+<li>Design MQTT Topics and Subscription.</li>
+<li>Present the pub/sub topics.</li>
+</ol>
+<p><img src="./assets/pubsub.png" alt="pubsub"></p>
+
+</body>
+</html>

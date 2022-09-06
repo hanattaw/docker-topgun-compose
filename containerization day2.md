@@ -2,11 +2,8 @@
 
 ## Server Programming and Configuration.
 
-### MQTT Dashboard
 
-> MQTT Dashboard
-
-## วันที่ 2 Docker compose ##
+## วันที่ 2 Docker compose / MQTT Topic##
 ### เรียนรู้ ###
 1. เรียนรู้ docker compose
 2. กำหนด topic/subscribe ของ MQTT
@@ -15,6 +12,7 @@
 
 
 ## Docker Compose ##
+
 **Compose** is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration.
 
 A docker-compose.yml looks like this:
@@ -57,7 +55,7 @@ networks:
 
 ```bash
 $ docker compose up
-                
+
 [+] Running 3/3
  ⠿ Network docker-topgun-compose_my-network  Created                                                  0.0s
  ⠿ Container emqx                            Created                                                  0.1s
@@ -66,9 +64,53 @@ Attaching to emqx, node-red
 
 ```
 
+Stop compose
+```bash
+
+$ docker compose stop 
+
+[+] Running 2/2
+ ⠿ Container node-red  Stopped                                                                        0.1s
+ ⠿ Container emqx      Stopped                                                                        1.4s
+
+```
+
+Remove compose
+```bash
+$ docker compose down
+
+[+] Running 3/0
+ ⠿ Container node-red                        Removed                                                  0.0s
+ ⠿ Container emqx                            Removed                                                  0.0s
+ ⠿ Network docker-topgun-compose_my-network  Removed                                                  0.1s
+
+```
+## Topics and Subscribe ##
+
+Move arm to coordinate x, y, z to topic "topgun/team1/arm/move/"
+```json
+{
+    "x": 10,
+    "y": 180,
+    "z": 30
+}
+
+```
+
+Grasp fingers to topic "topgun/team1/fingers/grasp/"
+```json
+{
+    "finger1": 80,
+    "finger2": 20,
+    "finger3": 30,
+    "finger4": 40,
+    "finger5": 10
+}
+```
 
 ## Top Gun Rally CDTI 2022 Day 2 Excercise ##
 
 1. Design MQTT Topics and Subscription.
-2. 
+2. Present the pub/sub topics.
 
+![pubsub](./assets/pubsub.png)
