@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+
+  emqx-mqtt:
+    image: emqx/emqx:5.0.7-elixir
+    container_name: emqx
+    networks:
+      - my-network
+    volumes:
+      - ./emqx_data:/opt/emqx/data
+      - ./emqx_log:/opt/emqx/log
+    ports:
+      - 1883:1883
+      - 8083:8083 
+      - 8084:8084 
+      - 8883:8883 
+      - 18083:18083 
+
+  node-red:
+    image: nodered/node-red
+    container_name: node-red
+    networks:
+      - my-network
+    volumes:
+      - ./node_red_data:/data
+    ports:
+      - 1880:1880
+
+networks:
+  my-network:
