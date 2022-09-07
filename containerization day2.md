@@ -14,6 +14,11 @@
 Download files from 
 [Git Hub (https://github.com/hanattaw/docker-topgun-compose)](https://github.com/hanattaw/docker-topgun-compose)
 
+```bash
+$ git clone https://github.com/hanattaw/docker-topgun-compose
+$ cd docker-topgun-compose
+
+```
 ## Docker Compose ##
 
 **Compose** is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration.
@@ -117,3 +122,6 @@ Grasp fingers to topic "topgun/team1/fingers/grasp/"
 2. Present the pub/sub topics.
 
 ![pubsub](./assets/pubsub.png)
+
+![mornitoring](./assets/mornitoring-dashboard.png)
+
